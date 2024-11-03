@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DriveCar : MonoBehaviour
@@ -14,7 +12,19 @@ public class DriveCar : MonoBehaviour
     private float _moveInput;
 
     private void Update() {
+        
         _moveInput = Input.GetAxisRaw("Horizontal");
+
+       
+        if (_moveInput == 0 && Input.touchCount > 0) {
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.position.x < Screen.width / 2) {
+                _moveInput = -1; // Move left
+            } else {
+                _moveInput = 1; // Move right
+            }
+        }
     }
 
     private void FixedUpdate(){
